@@ -1,0 +1,22 @@
+<div class="link-card" [class.clickable]="clickable()" (click)="openUrl()">
+  <div class="link-card-content">
+    @if (link().thumbnail) {
+      <img
+        [src]="link().thumbnail"
+        [alt]="link().siteName"
+        class="link-thumb"
+        (error)="$any($event.target).style.display='none'"
+      />
+    }
+    <div class="link-info">
+      <div class="link-site-name">{{ link().siteName }}</div>
+      <div class="link-url">{{ link().displayUrl }}</div>
+      @if (link().description && link().description !== link().url) {
+        <div class="link-description">{{ link().description }}</div>
+      }
+    </div>
+  </div>
+  @if (removable()) {
+    <button class="remove-btn" (click)="onRemove($event)" title="Remove link">✕</button>
+  }
+</div>

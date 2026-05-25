@@ -1,0 +1,107 @@
+<div class="compose-page">
+  <!-- Toolbar -->
+  <div class="compose-toolbar">
+    <h2 class="page-title">{{ isPublished ? 'Edit List' : 'New List' }}</h2>
+    <button
+      class="btn btn-publish"
+      [disabled]="!canPublish()"
+      (click)="publish()"
+    >
+      Publish
+    </button>
+  </div>
+
+  <div class="compose-body">
+    <!-- Vanity URL -->
+    <div class="field-group">
+      <label class="field-label">Vanity URL</label>
+      @if (isPublished) {
+        <div class="slug-locked">
+          <span>🔒</span>
+          <span>urlist.app/{{ slug }}</span>
+        </div>
+        <p class="hint-text">The vanity URL cannot be changed after publishing.</p>
+      } @else {
+        <div class="slug-input-wrapper" [class.focused]="slugFocused">
+          <span class="slug-prefix">urlist.app/</span>
+          <input
+            type="text"
+            [ngModel]="slug"
+            (ngModelChange)="onSlugChange($event)"
+            placeholder="your-url-slug"
+            class="input slug-input"
+            [class.error]="!slugValid()"
+            (focus)="slugFocused = true"
+            (blur)="slugFocused = false; save()"
+          />
+        </div>
+        @if (slugError()) {
+          <p class="error-text">{{ slugError() }}</p>
+        } @else {
+          <p class="hint-text">Leave blank to auto-assign a random slug.</p>
+        }
+      }
+    </div>
+
+    <!-- Description -->
+    <div class="field-group">
+      <label class="field-label">Description</label>
+      <input
+        type="text"
+        [(ngModel)]="description"
+        placeholder="A short description of your list…"
+        class="input"
+        maxlength="280"
+        (blur)="save()"
+      />
+    </div>
+
+    <!-- Add Link -->
+    <div class="field-group">
+      <label class="field-label">Add a Link</label>
+      <div class="add-link-row">
+        <input
+          type="text"
+          [(ngModel)]="urlInput"
+          placeholder="https://example.com or example.com"
+          class="input url-input-large"
+          (keydown.enter)="addLink()"
+          [disabled]="isAddingLink"
+        />
+        <button
+          class="btn btn-primary"
+          (click)="addLink()"
+          [disabled]="!urlInput.trim() || isAddingLink"
+        >
+          {{ isAddingLink ? 'Adding…' : 'Add' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Link Cards -->
+    @if (links().length > 0) {
+      <div
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event)"
+        class="links-list"
+      >
+        @for (link of links(); track link.id) {
+          <div cdkDrag cdkDragLockAxis="y" class="drag-item">
+            <div cdkDragHandle class="drag-handle" title="Drag to reorder">⣿</div>
+            <app-link-card
+              [link]="link"
+              [removable]="true"
+              (remove)="removeLink(link.id)"
+            />
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No links yet. Add your first link above.</p>
+      </div>
+    }
+  </div>
+</div>
+
+

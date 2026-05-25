@@ -1,0 +1,48 @@
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #6366f1;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #1e293b;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #6366f1;
+}
+
+.user-name {
+  font-size: 0.875rem;
+  color: #64748b;
+}

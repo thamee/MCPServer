@@ -1,0 +1,30 @@
+<div class="home">
+  <section class="hero">
+    <h1 class="hero-title">Urlist</h1>
+    <p class="hero-subtitle">Create and share curated collections of links</p>
+
+    <div class="url-input-container">
+      <input
+        type="text"
+        [(ngModel)]="urlInput"
+        placeholder="Paste a URL to get started…"
+        class="url-input"
+        (keydown)="onKeydown($event)"
+        autofocus
+      />
+      <button class="btn btn-primary btn-large" (click)="startList()" [disabled]="!urlInput.trim()">
+        Create List
+      </button>
+    </div>
+
+    <p class="hint">No account needed — just paste a URL and go</p>
+
+    @if (!auth.currentUser()) {
+      <p class="signin-prompt">
+        Already have an account?
+        <button class="link-btn" (click)="uiState.openSignIn()">Sign in</button>
+        to manage your lists.
+      </p>
+    }
+  </section>
+</div>

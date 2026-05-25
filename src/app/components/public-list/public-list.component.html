@@ -1,0 +1,32 @@
+@if (notFound()) {
+  <div class="not-found">
+    <div class="not-found-inner">
+      <h2>List not found</h2>
+      <p>This list doesn't exist or has been removed.</p>
+      <a routerLink="/" class="btn btn-primary">Go Home</a>
+    </div>
+  </div>
+} @else if (list()) {
+  <div class="public-list-page">
+    <div class="list-header">
+      <div class="list-meta">
+        <h1 class="list-slug">/{{ list()!.slug }}</h1>
+        @if (list()!.description) {
+          <p class="list-description">{{ list()!.description }}</p>
+        }
+        <p class="link-count">
+          {{ list()!.links.length }} link{{ list()!.links.length !== 1 ? 's' : '' }}
+        </p>
+      </div>
+      @if (isOwner()) {
+        <button class="btn btn-primary" (click)="editList()">Edit List</button>
+      }
+    </div>
+
+    <div class="links-list">
+      @for (link of list()!.links; track link.id) {
+        <app-link-card [link]="link" [clickable]="true" />
+      }
+    </div>
+  </div>
+}

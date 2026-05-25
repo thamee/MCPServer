@@ -1,0 +1,14 @@
+<header class="header">
+  <div class="header-inner">
+    <a routerLink="/" class="logo">Urlist</a>
+    <nav class="nav">
+      @if (auth.currentUser()) {
+        <a routerLink="/my-links" class="nav-link">My Links</a>
+        <span class="user-name">{{ auth.currentUser()!.username }}</span>
+        <button class="btn btn-ghost" (click)="signOut()">Sign Out</button>
+      } @else {
+        <button class="btn btn-primary" (click)="uiState.openSignIn()">Sign In</button>
+      }
+    </nav>
+  </div>
+</header>

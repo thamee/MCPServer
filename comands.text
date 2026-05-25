@@ -1,0 +1,7 @@
+Model	Example input
+Tag	Add a Tag model with id (string) and label (string) fields
+User	Add a User model with id, email, displayName, and avatarUrl fields
+Comment	Add a Comment model with id, text, authorId, and createdAt fields
+Category	Add a Category model with id, name, and color fields
+Share	Add a Share model with listId, sharedWith (string[]), and expiresAt (string or null)
+ListStats	Add a ListStats model with listId, viewCount, and clickCount (numbers)
