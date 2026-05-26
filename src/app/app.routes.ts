@@ -34,6 +34,11 @@ export const routes: Routes = [
         (m) => m.PublicListComponent
       ),
   },
+  {
+    path: 'chat',
+    loadComponent: () =>
+      import('./components/chat/chat.component').then((m) => m.ChatComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 

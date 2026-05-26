@@ -1,0 +1,57 @@
+<div class="chat-page">
+  <div class="chat-container">
+    <div class="chat-header">
+      <span class="chat-icon">💬</span>
+      <div>
+        <h2 class="chat-title">AI Chat</h2>
+        <p class="chat-subtitle">Powered by MCP · Countries · Weather · Trivia · GitHub PRs</p>
+      </div>
+    </div>
+
+    <div class="messages">
+      @for (msg of messages(); track msg.timestamp) {
+        <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
+          @if (msg.role === 'assistant') {
+            <div class="avatar">🤖</div>
+          }
+          <div class="bubble" [innerHTML]="msg.text | markdown"></div>
+          @if (msg.role === 'user') {
+            <div class="avatar user-avatar">👤</div>
+          }
+        </div>
+      }
+
+      @if (loading()) {
+        <div class="message assistant">
+          <div class="avatar">🤖</div>
+          <div class="bubble typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      }
+
+      <div #messagesEnd></div>
+    </div>
+
+    <div class="input-area">
+      <textarea
+        class="chat-input"
+        [(ngModel)]="input"
+        placeholder="Ask about a country, weather, trivia, or review a GitHub PR..."
+        rows="1"
+        (keydown)="onKeydown($event)"
+        [disabled]="loading()"
+      ></textarea>
+      <button
+        class="send-btn"
+        (click)="send()"
+        [disabled]="!input.trim() || loading()"
+        aria-label="Send message"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
