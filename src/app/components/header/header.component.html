@@ -2,6 +2,7 @@
   <div class="header-inner">
     <a routerLink="/" class="logo">Urlist</a>
     <nav class="nav">
+      <a routerLink="/chat" class="nav-link">💬 Chat</a>
       @if (auth.currentUser()) {
         <a routerLink="/my-links" class="nav-link">My Links</a>
         <span class="user-name">{{ auth.currentUser()!.username }}</span>
